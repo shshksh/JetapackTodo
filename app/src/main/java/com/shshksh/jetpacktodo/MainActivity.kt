@@ -1,6 +1,7 @@
 package com.shshksh.jetpacktodo
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +22,17 @@ class MainActivity : AppCompatActivity() {
         val navController = host.navController
 
         val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.addFragment -> {
+                    binding.toolbarTop.visibility = View.GONE
+                }
+                else -> {
+                    binding.toolbarTop.visibility = View.VISIBLE
+                }
+            }
+        }
 
         binding.toolbarTop.setupWithNavController(navController, appBarConfiguration)
     }
