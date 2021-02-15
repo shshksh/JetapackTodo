@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.shshksh.jetpacktodo.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
     private var binding: FragmentMainBinding? = null
-
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
@@ -24,6 +24,14 @@ class MainFragment : Fragment() {
         binding?.lifecycleOwner = viewLifecycleOwner
 
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.addTodoMain?.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
+        }
     }
 
     override fun onDestroyView() {
