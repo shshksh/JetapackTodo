@@ -24,6 +24,7 @@ class MainFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         factory = (context as MainActivity).obtainFactory()
+        viewModel.loadTodo()
     }
 
     override fun onCreateView(
@@ -44,7 +45,12 @@ class MainFragment : Fragment() {
         binding.addTodoMain.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
         }
-//        binding.recyclerviewMain.adapter = TodoAdapter()
+        val adapter = TodoAdapter()
+        binding.recyclerviewMain.adapter = adapter
+
+        viewModel.liveTodo.observe(viewLifecycleOwner) {
+            adapter.setItems(it)
+        }
     }
 
     override fun onDestroyView() {

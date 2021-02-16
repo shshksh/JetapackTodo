@@ -22,6 +22,7 @@
             android:id="@+id/recyclerview_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기록이 없습니다."
-                android:visibility="@{vm.isEmpty() ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{vm.liveTodo.empty ? View.VISIBLE : View.GONE}" />
 
         </LinearLayout>
 

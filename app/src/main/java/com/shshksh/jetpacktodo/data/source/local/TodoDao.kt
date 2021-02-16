@@ -1,5 +1,6 @@
 package com.shshksh.jetpacktodo.data.source.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,5 +12,5 @@ interface TodoDao {
     fun saveTodo(todo: Todo)
 
     @Query("select * from Todo")
-    fun getAllTodo(): List<Todo>
+    fun getAllTodo(): LiveData<List<Todo>>
 }
