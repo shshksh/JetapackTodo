@@ -1,5 +1,6 @@
 package com.shshksh.jetpacktodo.ui.add
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Pair
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.widget.textChangeEvents
+import com.shshksh.jetpacktodo.MainActivity
 import com.shshksh.jetpacktodo.databinding.FragmentAddBinding
+import com.shshksh.jetpacktodo.util.AppViewModelFactory
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
@@ -18,9 +21,16 @@ class AddFragment : Fragment() {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AddViewModel by viewModels()
+    private lateinit var factory: AppViewModelFactory
+
+    private val viewModel: AddViewModel by viewModels { factory }
 
     private val compositeDisposable = CompositeDisposable()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        factory = (context as MainActivity).obtainFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

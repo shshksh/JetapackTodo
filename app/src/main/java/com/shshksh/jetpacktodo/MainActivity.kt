@@ -36,4 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbarTop.setupWithNavController(navController, appBarConfiguration)
     }
+
+    fun obtainFactory() = (application as App).viewModelFactory
 }
