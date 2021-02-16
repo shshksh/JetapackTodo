@@ -18,5 +18,12 @@
         android:id="@+id/addFragment"
         android:name="com.shshksh.jetpacktodo.ui.add.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+
+        <argument
+            android:name="todo"
+            app:argType="com.shshksh.jetpacktodo.data.entity.Todo"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
