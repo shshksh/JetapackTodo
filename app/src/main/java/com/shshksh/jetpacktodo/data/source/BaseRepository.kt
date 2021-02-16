@@ -3,7 +3,7 @@ package com.shshksh.jetpacktodo.data.source
 import com.shshksh.jetpacktodo.data.entity.Todo
 
 interface BaseRepository {
-    fun saveTodo(todo: Todo)
+    suspend fun saveTodo(todo: Todo)
 
-    fun getAllTodo(): List<Todo>
+    suspend fun getAllTodo(): List<Todo>
 }

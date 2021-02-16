@@ -29,13 +29,17 @@ class AddFragment : Fragment() {
     ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCancelAdd.setOnClickListener { findNavController().navigateUp() }
-        binding.btnCompleteAdd.setOnClickListener { viewModel.save() }
+        binding.btnCompleteAdd.setOnClickListener {
+            viewModel.save()
+            findNavController().navigateUp()
+        }
 
         setCompleteBtnWatcher()
     }
