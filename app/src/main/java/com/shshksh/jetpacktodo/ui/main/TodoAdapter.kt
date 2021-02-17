@@ -2,9 +2,11 @@ package com.shshksh.jetpacktodo.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shshksh.jetpacktodo.BR
 import com.shshksh.jetpacktodo.databinding.ItemTodoBinding
+import com.shshksh.jetpacktodo.util.TodoDiffCallback
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -27,8 +29,9 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     override fun getItemCount() = items.size
 
     fun setItems(items: List<TodoItem>) {
+        val diffResult = DiffUtil.calculateDiff(TodoDiffCallback(this.items, items))
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }
