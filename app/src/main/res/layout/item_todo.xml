@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:layout_marginTop="5dp"
             android:onClick="@{v -> item.clickListener.onTodoClick(item)}"
             app:cardBackgroundColor="@color/cardview_dark_background"
             app:cardCornerRadius="15dp">
@@ -35,6 +35,8 @@
                     android:id="@+id/tv_todo_title"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@{item.title}"
                     android:textColor="@android:color/black"
                     android:textSize="30sp"
@@ -44,6 +46,8 @@
                     android:id="@+id/tv_todo_description"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@{item.description}"
                     tools:text="description" />
 

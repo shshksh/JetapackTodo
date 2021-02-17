@@ -1,38 +1,22 @@
 package com.shshksh.jetpacktodo.ui.main
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.shshksh.jetpacktodo.BR
-import com.shshksh.jetpacktodo.R
+import com.shshksh.jetpacktodo.databinding.ItemTodoBinding
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
-    inner class TodoViewHolder(val binding: ViewDataBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        constructor(context: Context, @LayoutRes layoutId: Int) : this(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(context),
-                layoutId,
-                null,
-                false
-            )
-        )
-    }
+    inner class TodoViewHolder(val binding: ItemTodoBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private var items: MutableList<TodoItem> = ArrayList()
 
-    override fun getItemViewType(position: Int): Int {
-        return R.layout.item_todo
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        return TodoViewHolder(parent.context, viewType)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemTodoBinding.inflate(inflater, parent, false)
+        return TodoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
