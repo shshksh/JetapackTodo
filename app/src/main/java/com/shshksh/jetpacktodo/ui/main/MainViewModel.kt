@@ -25,4 +25,13 @@ class MainViewModel(
         Log.d(this::class.simpleName, "onTodoClick: emit todo item")
         todoClickEvent.onNext(todoItem)
     }
+
+    fun removeTodo(position: Int) {
+        val todoItem = liveTodo.value?.get(position)
+        todoItem?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                repo.deleteTodo(todoItem.todo)
+            }
+        }
+    }
 }

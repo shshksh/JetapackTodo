@@ -11,4 +11,6 @@ interface BaseRepository {
     suspend fun updateTodo(todo: Todo)
 
     suspend fun getTodo(id: Int): Todo
+
+    suspend fun deleteTodo(todo: Todo)
 }

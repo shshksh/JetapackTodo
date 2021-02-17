@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.shshksh.jetpacktodo.MainActivity
 import com.shshksh.jetpacktodo.databinding.FragmentMainBinding
 import com.shshksh.jetpacktodo.util.AppViewModelFactory
@@ -24,6 +26,23 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels { factory }
 
     private var disposable: Disposable? = null
+
+    private val adapter = TodoAdapter()
+
+    private val simpleCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false;
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.layoutPosition
+            viewModel.removeTodo(position)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,8 +70,9 @@ class MainFragment : Fragment() {
                 MainFragmentDirections.actionMainFragmentToAddFragment()
             )
         }
-        val adapter = TodoAdapter()
         binding.recyclerviewMain.adapter = adapter
+        val itemTouchHelper = ItemTouchHelper(simpleCallBack)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerviewMain)
 
         viewModel.liveTodo.observe(viewLifecycleOwner) {
             adapter.setItems(it)

@@ -22,4 +22,8 @@ class TodoRepository(private val db: TodoDatabase) : BaseRepository {
         return db.todoDAO().getTodo(id)
     }
 
+    override suspend fun deleteTodo(todo: Todo) {
+        db.todoDAO().deleteTodo(todo)
+    }
+
 }
