@@ -47,7 +47,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addTodoMain.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddFragment()
+            )
         }
         val adapter = TodoAdapter()
         binding.recyclerviewMain.adapter = adapter
@@ -58,7 +60,9 @@ class MainFragment : Fragment() {
 
         disposable = viewModel.todoClickEvent.subscribe {
             Log.d(this::class.simpleName, "onViewCreated: subscribe $it")
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment(it.todo))
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddFragment(it.todo.id)
+            )
         }
     }
 

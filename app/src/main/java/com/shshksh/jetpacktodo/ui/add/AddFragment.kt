@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.jakewharton.rxbinding4.widget.textChangeEvents
 import com.shshksh.jetpacktodo.MainActivity
 import com.shshksh.jetpacktodo.databinding.FragmentAddBinding
@@ -26,6 +27,13 @@ class AddFragment : Fragment() {
     private val viewModel: AddViewModel by viewModels { factory }
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val args: AddFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.init(args.id)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,9 +54,16 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCancelAdd.setOnClickListener { findNavController().navigateUp() }
-        binding.btnCompleteAdd.setOnClickListener {
-            viewModel.save()
-            findNavController().navigateUp()
+        if (args.id >= 0) {
+            binding.btnCompleteAdd.setOnClickListener {
+                viewModel.update()
+                findNavController().navigateUp()
+            }
+        } else {
+            binding.btnCompleteAdd.setOnClickListener {
+                viewModel.save()
+                findNavController().navigateUp()
+            }
         }
 
         setCompleteBtnWatcher()

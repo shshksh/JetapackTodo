@@ -7,4 +7,8 @@ interface BaseRepository {
     suspend fun saveTodo(todo: Todo)
 
     suspend fun getAllTodo(): LiveData<List<Todo>>
+
+    suspend fun updateTodo(todo: Todo)
+
+    suspend fun getTodo(id: Int): Todo
 }

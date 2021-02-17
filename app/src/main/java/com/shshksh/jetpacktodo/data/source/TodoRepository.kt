@@ -13,4 +13,13 @@ class TodoRepository(private val db: TodoDatabase) : BaseRepository {
     override suspend fun getAllTodo(): LiveData<List<Todo>> {
         return db.todoDAO().getAllTodo()
     }
+
+    override suspend fun updateTodo(todo: Todo) {
+        db.todoDAO().updateTodo(todo)
+    }
+
+    override suspend fun getTodo(id: Int): Todo {
+        return db.todoDAO().getTodo(id)
+    }
+
 }
